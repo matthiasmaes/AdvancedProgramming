@@ -9,7 +9,18 @@
  * @author tijs
  */
 public class TicTacToe {
-    public String Replace(int number, String word, int chckNum){
+    public int max;
+    public int min;
+    public int chckNum;
+    public String word;
+    
+    public TicTacToe(int min, int max, String word, int num){
+        this.min= min;
+        this.max= max;
+        this.chckNum = num;
+        this.word= word;
+    }
+    public String Replace(int number){
         String Snum = ""+number;
         String newStr = "";
         char[] charArray = Snum.toCharArray();
@@ -20,51 +31,14 @@ public class TicTacToe {
         else return Snum;
     }
     
-    public String Divide(int number, String word, int chckNum){
+    public String Divide(int number){
         String Snum = ""+number;
-        String rep = Replace(number, word, chckNum);
+        String rep = Replace(number);
         if(number%chckNum == 0 && Snum.contains(""+chckNum)) return rep += " "+word;
         else if(number%chckNum == 0) return word;
         else return rep;
     }
-    /*
-    public String Replace5(int number){
-        String Snum = ""+number;
-        String newStr = "";
-        char[] charArray = Snum.toCharArray();
-        for(char num : charArray){
-            if(num == '5') newStr += "Tac "; 
-        }
-        if(Snum.contains("5"))return newStr.trim();        
-        else return Snum;
-    }
-    
-     public String Divide5(int number){
-        String Snum = ""+number;
-        String rep = Replace5(number);
-        if(number%5 == 0 && Snum.contains("5")) return rep += " Tac";
-        else if(number%5 == 0) return "Tac";
-        else return rep;
-    }
-     
-    public String Replace7(int number){
-        String Snum = ""+number;
-        String newStr = "";
-        char[] charArray = Snum.toCharArray();
-        for(char num : charArray){
-            if(num == '7') newStr += "Toe "; 
-        }
-        if(Snum.contains("7"))return newStr.trim();        
-        else return Snum;
-    }
-    
-     public String Divide7(int number){
-        String Snum = ""+number;
-        String rep = Replace7(number);
-        if(number%7 == 0 && Snum.contains("7")) return rep += " Toe";
-        else if(number%7 == 0) return "Toe";
-        else return rep;
-    }*/
+  
     /*
     public String DivideBy3And5(int number){
         String Snum = ""+number;
