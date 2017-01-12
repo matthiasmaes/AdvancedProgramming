@@ -9,25 +9,25 @@
  * @author tijs
  */
 public class TicTacToe {
-    public String Replace3(int number){
+    public String Replace(int number, String word, int chckNum){
         String Snum = ""+number;
         String newStr = "";
         char[] charArray = Snum.toCharArray();
         for(char num : charArray){
-            if(num == '3') newStr += "Tic "; 
+            if(num == Integer.toString(chckNum).charAt(0)) newStr += word+" "; 
         }
-        if(Snum.contains("3"))return newStr.trim();        
+        if(Snum.contains(""+chckNum))return newStr.trim();        
         else return Snum;
     }
     
-    public String Divide3(int number){
+    public String Divide(int number, String word, int chckNum){
         String Snum = ""+number;
-        String rep = Replace3(number);
-        if(number%3 == 0 && Snum.contains("3")) return rep += " Tic";
-        else if(number%3 == 0) return "Tic";
+        String rep = Replace(number, word, chckNum);
+        if(number%chckNum == 0 && Snum.contains(""+chckNum)) return rep += " "+word;
+        else if(number%chckNum == 0) return word;
         else return rep;
     }
-    
+    /*
     public String Replace5(int number){
         String Snum = ""+number;
         String newStr = "";
@@ -64,8 +64,8 @@ public class TicTacToe {
         if(number%7 == 0 && Snum.contains("7")) return rep += " Toe";
         else if(number%7 == 0) return "Toe";
         else return rep;
-    }
-    
+    }*/
+    /*
     public String DivideBy3And5(int number){
         String Snum = ""+number;
         
@@ -100,5 +100,5 @@ public class TicTacToe {
             return Divide5(number);
         }
         else return Snum;
-    }
+    }*/
 }
