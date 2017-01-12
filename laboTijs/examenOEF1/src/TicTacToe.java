@@ -53,22 +53,26 @@ public class TicTacToe {
     
     public String DivideAndReplaceMultipleNumbers(int number){
         String Snum = ""+number;
+        Boolean changed = false;
         char[] charArray = Snum.toCharArray();
         String result= "";
         if(map.isEmpty())throw new IllegalArgumentException();
         else{
             for(Map.Entry<String, String> entry : map.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
+                String key = entry.getKey();
+                String value = entry.getValue();
             
-            for(char num : charArray){
-                if(num == key.charAt(0)) result += value+" "; 
-            }
-            if(number%Integer.parseInt(key)== 0)result += value+" ";
-            
+                for(char num : charArray)if(num == key.charAt(0)){
+                    changed = true;
+                    result += value+" ";
+                } 
+                if(number%Integer.parseInt(key)== 0){
+                    changed=true;
+                    result += value+" ";
+                }
             }
         }
-        
-        return result.trim();
+        if(!changed) return Snum;
+        else return result.trim();
     }
 }
