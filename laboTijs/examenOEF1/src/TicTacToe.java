@@ -1,3 +1,7 @@
+
+import java.util.HashMap;
+import java.util.Map;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,6 +17,7 @@ public class TicTacToe {
     public int min;
     public int chckNum;
     public String word;
+    Map<String, String> map = new HashMap<String,String>();
     
     public TicTacToe(int min, int max, String word, int num){
         this.min= min;
@@ -20,6 +25,13 @@ public class TicTacToe {
         this.chckNum = num;
         this.word= word;
     }
+    
+     public TicTacToe(int min, int max, Map<String,String> elements){
+        this.min= min;
+        this.max= max;
+        this.map = elements;
+    }
+        
     public String Replace(int number){
         String Snum = ""+number;
         String newStr = "";
@@ -38,41 +50,25 @@ public class TicTacToe {
         else if(number%chckNum == 0) return word;
         else return rep;
     }
-  
-    /*
-    public String DivideBy3And5(int number){
-        String Snum = ""+number;
-        
-        if((number%3 == 0 && number%5 == 0) || (number%3 == 0 && Snum.contains("5")) || (number%5 == 0 && Snum.contains("3"))){
-            String D5 = Divide5(number);
-            String D3 = Divide3(number);
-            
-            return D3 + " " + D5;
-        }
-        else if(number%3==0 || Snum.contains("3")){
-            return Divide3(number);
-        }
-        else if(number%5==0 || Snum.contains("5")){
-            return Divide5(number);
-        }
-        else return Snum;
-    }
     
-     public String DivideBy3And5And7(int number){
+    public String DivideAndReplaceMultipleNumbers(int number){
         String Snum = ""+number;
-        
-        if((number%3 == 0 && number%5 == 0) || (number%3 == 0 && Snum.contains("5")) || (number%5 == 0 && Snum.contains("3"))){
-            String D5 = Divide5(number);
-            String D3 = Divide3(number);
+        char[] charArray = Snum.toCharArray();
+        String result= "";
+        if(map.isEmpty())throw new IllegalArgumentException();
+        else{
+            for(Map.Entry<String, String> entry : map.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
             
-            return D3 + " " + D5;
+            for(char num : charArray){
+                if(num == key.charAt(0)) result += value+" "; 
+            }
+            if(number%Integer.parseInt(key)== 0)result += value+" ";
+            
+            }
         }
-        else if(number%3==0 || Snum.contains("3")){
-            return Divide3(number);
-        }
-        else if(number%5==0 || Snum.contains("5")){
-            return Divide5(number);
-        }
-        else return Snum;
-    }*/
+        
+        return result.trim();
+    }
 }
