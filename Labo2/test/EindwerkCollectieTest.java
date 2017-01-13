@@ -14,6 +14,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Ignore;
 import DataEntities.*;
+import Utilities.NaamGenerator;
 
 /**
  *
@@ -29,7 +30,7 @@ public class EindwerkCollectieTest {
     private final Eindwerk eindwerk4;
             
     
-    public EindwerkCollectieTest() {
+    public EindwerkCollectieTest() {      
         this.collectie = new EindwerkCollectie();
         this.student1 = new Student("Peter", "Demeester");
         Student student2 = new Student("Katja", "Verbeeck");
@@ -110,5 +111,9 @@ public class EindwerkCollectieTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+    
+    
+    
+
     
 }
