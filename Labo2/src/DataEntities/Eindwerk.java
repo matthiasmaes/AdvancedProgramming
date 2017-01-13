@@ -38,4 +38,21 @@ public class Eindwerk {
         return this.student;
     }
     
+    
+    public int compareTo(Eindwerk other){
+        if (this.getRichting().equals(other.getRichting())) {
+            if (this.getStudent().getAchternaam().equals(other.getStudent().getAchternaam())){
+                if (this.getStudent().getVoornaam().equals(other.getStudent().getVoornaam())){
+                    return 0;
+                } else {
+                    return this.getStudent().getVoornaam().compareTo(other.getStudent().getVoornaam());
+                }
+            } else {
+                return this.getStudent().getAchternaam().compareTo(other.getStudent().getAchternaam());
+            }           
+        } else {
+            return this.getRichting().compareTo(other.getRichting());
+        }
+    }
+    
 }
