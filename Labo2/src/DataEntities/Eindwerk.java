@@ -9,7 +9,7 @@ package DataEntities;
  *
  * @author MatthiasMaes
  */
-public class Eindwerk {
+public class Eindwerk implements Comparable<Eindwerk> {
     private final String titel;
     private final int jaar;
     private final String richting;

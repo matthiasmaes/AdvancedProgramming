@@ -8,36 +8,45 @@ import interfaces.EindwerkCollectieInterface;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.SortedMap;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
 /**
  *
  * @author MatthiasMaes
  */
 public class EindwerkCollectie implements EindwerkCollectieInterface {
-     
-    private final List<Eindwerk> eindwerkCollectie;
+
+    SortedMap<String, SortedSet<Eindwerk>> eindwerkCollectie;
+
     
-    public EindwerkCollectie(){
-        this.eindwerkCollectie = new ArrayList<>();
-    }
-    
-    public List<Eindwerk> test(){
+    public SortedMap<String, SortedSet<Eindwerk>> test(){
         return this.eindwerkCollectie;
     }
     
-    
-    //Comparator<Eindwerk> byName = (Eindwerk e1, Eindwerk e2) -> e1.getRichting().compareTo(e2.getRichting());
+    public EindwerkCollectie(){
+        this.eindwerkCollectie = new TreeMap<String, SortedSet<Eindwerk>>(); 
+    }
+
     
     public Eindwerk[] getEindwerkenVanOpleiding(String opleiding) {
-       List<Eindwerk> EindwerkArray = new ArrayList<>();
-       this.eindwerkCollectie.stream().filter((eindwerk) -> (eindwerk.getRichting().equals(opleiding))).sorted((e1, e2) -> e1.compareTo(e2)).forEachOrdered((eindwerk) -> {EindwerkArray.add(eindwerk);});
-        return  EindwerkArray.toArray().length == 0 ? null : EindwerkArray.toArray(new Eindwerk[0]);
+        
+        return this.eindwerkCollectie.get(opleiding) == null ? null : this.eindwerkCollectie.get(opleiding).toArray(new Eindwerk[0]);
     }
 
     public void verwijder(Eindwerk eindwerk){
-        this.eindwerkCollectie.remove(eindwerk);
+        this.eindwerkCollectie.get(eindwerk.getRichting()).remove(eindwerk);
+        if (this.eindwerkCollectie.get(eindwerk.getRichting()).isEmpty()) {
+            this.eindwerkCollectie.replace(eindwerk.getRichting(), null);
+        }
+        
+        
     }
 
-    public void voegToe(Eindwerk eindwerk){
-        if (!this.eindwerkCollectie.contains(eindwerk)) this.eindwerkCollectie.add(eindwerk);
+    public void voegToe(Eindwerk eindwerk){  
+        if (!this.eindwerkCollectie.keySet().contains(eindwerk.getRichting())) this.eindwerkCollectie.put(eindwerk.getRichting(), new TreeSet<Eindwerk>());       
+        this.eindwerkCollectie.get(eindwerk.getRichting()).add(eindwerk);
+        System.out.println();
     }
 }
