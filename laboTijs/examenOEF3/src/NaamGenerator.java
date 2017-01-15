@@ -64,8 +64,11 @@ public class NaamGenerator {
     }
 
     public int getRandomYear(){        
-        int randomInt = 2000 + (int)(Math.random() * 2050);
-        return randomInt;        
+        Random r = new Random();
+        int Low = 2015;
+        int High = 2017;
+        return r.nextInt(High-Low) + Low;
+      
     }
     
     public String getRandomFirstName(){        

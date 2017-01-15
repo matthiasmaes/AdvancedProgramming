@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import static jdk.nashorn.internal.objects.NativeMath.random;
 
@@ -23,9 +24,14 @@ public class Streams {
     private final Random random ;
     List<Student> students;
     List<Eindwerk> eindwerken;
+    List<String> opleidingen = new ArrayList<>();
+
     
     public Streams() {
         this.random = new Random(1);
+        opleidingen.add("OPT");
+        opleidingen.add("ICT");
+        opleidingen.add("EO");
         CreateStudents();
         CreateEindwerken();
     }
@@ -42,10 +48,7 @@ public class Streams {
         NaamGenerator namegen = new NaamGenerator();
         eindwerken = new ArrayList<Eindwerk>();
         
-        List<String> opleidingen = new ArrayList<>();
-        opleidingen.add("OPT");
-        opleidingen.add("ICT");
-        opleidingen.add("EO");
+
         
         for (int i = 0; i < 50; i++) {
             String title = namegen.makeTitleWithRandomWords(5);
@@ -77,7 +80,24 @@ public class Streams {
         System.out.println("**********************************************");
         eindwerkenMaker.get().filter(e -> e.titel.endsWith("f "))
                              .forEach(e -> System.out.println(e));
-        System.out.println("**********************************************");
-        
+        System.out.println("**********************************************");     
+    }
+    
+    public void StreamOfStreams(){       
+        List<Stream<Eindwerk>> lijst = new ArrayList();        
+        for (String opl : this.opleidingen) {           
+             lijst.add(eindwerkenMaker.get().filter((Eindwerk e) -> {                
+                   return (e.opleiding.equals(opl));            
+             }));        
+        }        
+        Stream<Stream<Eindwerk>> streamsEindw = lijst.stream();
+
+        streamsEindw.map((Stream<Eindwerk> s)                
+            -> s.collect(Collectors.groupingBy(e -> e.opleiding + e.jaartal,Collectors.counting())))                
+                .forEach(m -> {                    
+                    for (String key : m.keySet()) {                        
+                         System.out.println(key + "  " + m.get(key));
+                    }                
+                });
     }
 }
