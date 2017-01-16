@@ -8,6 +8,7 @@ import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.stream.Stream;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -45,12 +46,15 @@ public class EindwerkCollectie implements EindwerkCollectieInterface {
     @Override
     public Eindwerk[] getEindwerkenVanOpleiding(String opleiding) {
         
-        for(Map.Entry<String, SortedSet<Eindwerk>> entry : map.entrySet()) {
+        /*for(Map.Entry<String, SortedSet<Eindwerk>> entry : map.entrySet()) {
             String key = entry.getKey();
             SortedSet<Eindwerk> value = entry.getValue();
             
             if(key.equals(opleiding)) return value.toArray(new Eindwerk[value.size()]);
-        }
+            
+        }*/
+        
+        if(map.containsKey(opleiding))return map.get(opleiding).toArray(new Eindwerk[map.get(opleiding).size()]);
         return null;
         
         /****dubbele lijst per richting************************************************
@@ -80,6 +84,12 @@ public class EindwerkCollectie implements EindwerkCollectieInterface {
 
     @Override
     public void verwijder(Eindwerk eindwerk) {
+        map.forEach((key,value)->{
+            if(key.equals(eindwerk.opleiding )&& value.contains(eindwerk)) value.remove(eindwerk);
+        }); 
+        if(map.get(eindwerk.opleiding).isEmpty())map.remove(eindwerk.opleiding);
+        
+        /********map for************************************************************************************************
         for(Map.Entry<String, SortedSet<Eindwerk>> entry : map.entrySet()) {
             String key = entry.getKey();
             SortedSet value = entry.getValue();
@@ -87,7 +97,8 @@ public class EindwerkCollectie implements EindwerkCollectieInterface {
             if(key.equals(eindwerk.opleiding )&& value.contains(eindwerk)) value.remove(eindwerk);
             if(value.isEmpty()) map.remove(key);
         }
-         
+        *******************************************************************************************************/ 
+
         /****enkele list****************************************************************************************************
         this.eindwerkcollectie.remove(eindwerk);
         *********************************************************************************************************************/
@@ -104,19 +115,25 @@ public class EindwerkCollectie implements EindwerkCollectieInterface {
 
     @Override
     public void voegToe(Eindwerk eindwerk) {
-        for(Map.Entry<String, SortedSet<Eindwerk>> entry : map.entrySet()) {
-            String key = entry.getKey();
-            SortedSet value = entry.getValue();
-
+        
+        map.forEach((key,value)-> {
             if(key.equals(eindwerk.opleiding) && !value.contains(eindwerk)) value.add(eindwerk);
-        }
+        });
 
         if(!map.containsKey(eindwerk.opleiding)){
             SortedSet<Eindwerk> ewl = new TreeSet<Eindwerk>();
             ewl.add(eindwerk);
             map.put(eindwerk.opleiding, ewl);
         }
+        
+        /***map for*****************************************************************************************
+        for(Map.Entry<String, SortedSet<Eindwerk>> entry : map.entrySet()) {
+            String key = entry.getKey();
+            SortedSet value = entry.getValue();
 
+            if(key.equals(eindwerk.opleiding) && !value.contains(eindwerk)) value.add(eindwerk);
+        }
+        *******************************************************************************************************/
         
         /****enkele list****************************************************************************************************
         if (!this.eindwerkcollectie.contains(eindwerk)) this.eindwerkcollectie.add(eindwerk);

@@ -14,9 +14,8 @@ public class StreamMain {
      */
     public static void main(String[] args) {
        Streams stream = new Streams();
-       // stream.compare();
-       //stream.FilterEindwerken();
+       stream.FilterEindwerken();
        stream.StreamOfStreams();
-       //stream.SortStudents();
+       stream.SortStudents();
     }
 }

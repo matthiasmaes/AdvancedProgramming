@@ -59,11 +59,13 @@ public class Streams {
         }
     }
     public void SortStudents(){
+        System.out.println("*************Sort studenten******************");
        Comparator<Student> byFirstName = (s1, s2) -> s1.getFirstName().compareTo(s2.getFirstName());    
        Comparator<Student> byLastName = (s1, s2) -> s1.getLastName().compareTo(s2.getLastName());         
        Comparator<Student> byNumber = (s1, s2) -> s1.getNumber().compareTo(s2.getNumber());         
     
        students.stream().sorted(byLastName.thenComparing(byFirstName).thenComparing(byNumber)).forEach(e -> System.out.println(e));
+       System.out.println(); 
     }
     
     public  Supplier<Stream<Eindwerk>> eindwerkenMaker = () -> {
@@ -80,10 +82,11 @@ public class Streams {
         System.out.println("**********************************************");
         eindwerkenMaker.get().filter(e -> e.titel.endsWith("f "))
                              .forEach(e -> System.out.println(e));
-        System.out.println("**********************************************");     
+        System.out.println();     
     }
     
-    public void StreamOfStreams(){       
+    public void StreamOfStreams(){    
+        System.out.println("*************Groupingby******************");
         List<Stream<Eindwerk>> lijst = new ArrayList();        
         for (String opl : this.opleidingen) {           
              lijst.add(eindwerkenMaker.get().filter((Eindwerk e) -> {                
@@ -99,5 +102,6 @@ public class Streams {
                          System.out.println(key + "  " + m.get(key));
                     }                
                 });
+        System.out.println(); 
     }
 }

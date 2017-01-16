@@ -1,6 +1,8 @@
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -35,7 +37,9 @@ public class TicTacToe {
     public String Replace(int number){
         String Snum = ""+number;
         String newStr = "";
+        
         char[] charArray = Snum.toCharArray();
+
         for(char num : charArray){
             if(num == Integer.toString(chckNum).charAt(0)) newStr += word+" "; 
         }
@@ -56,6 +60,7 @@ public class TicTacToe {
         Boolean changed = false;
         char[] charArray = Snum.toCharArray();
         String result= "";
+        
         if(map.isEmpty())throw new IllegalArgumentException();
         else{
             for(Map.Entry<String, String> entry : map.entrySet()) {
