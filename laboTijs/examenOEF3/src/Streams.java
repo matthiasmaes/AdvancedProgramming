@@ -4,7 +4,10 @@ import static java.lang.StrictMath.random;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -73,6 +76,7 @@ public class Streams {
         };
     
     public void FilterEindwerken(){
+        
         System.out.println("*************Eindwerken******************");
         eindwerkenMaker.get().filter(e -> e.student.voornaam.contains("r"))
                              .forEach(e -> System.out.println(e));
@@ -82,6 +86,24 @@ public class Streams {
         System.out.println("**********************************************");
         eindwerkenMaker.get().filter(e -> e.titel.endsWith("f "))
                              .forEach(e -> System.out.println(e));
+      
+        System.out.println();
+        System.out.println("***********filter collect*******************");
+        
+        Map<String,SortedSet<Eindwerk>> eindw;
+        eindw = eindwerkenMaker.get()
+                               .filter((e)->e.opleiding.endsWith("T"))
+                               .collect(Collectors.groupingBy((e)-> e.opleiding, Collectors.toCollection(TreeSet<Eindwerk>::new)));
+        
+        eindw.forEach((k,v)-> {
+            System.out.println("-"+ k + "-");
+            v.stream()
+             .limit(5)
+             .forEach((e) ->{
+                System.out.println(e.student);
+            });
+         });
+            
         System.out.println();     
     }
     

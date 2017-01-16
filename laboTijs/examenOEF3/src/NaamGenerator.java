@@ -68,7 +68,6 @@ public class NaamGenerator {
         int Low = 2015;
         int High = 2017;
         return r.nextInt(High-Low) + Low;
-      
     }
     
     public String getRandomFirstName(){        

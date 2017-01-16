@@ -46,16 +46,18 @@ public class EindwerkCollectie implements EindwerkCollectieInterface {
     @Override
     public Eindwerk[] getEindwerkenVanOpleiding(String opleiding) {
         
-        /*for(Map.Entry<String, SortedSet<Eindwerk>> entry : map.entrySet()) {
+        if(map.containsKey(opleiding))return map.get(opleiding).toArray(new Eindwerk[map.get(opleiding).size()]);
+        return null;
+        
+        /********************************************************************************
+        for(Map.Entry<String, SortedSet<Eindwerk>> entry : map.entrySet()) {
             String key = entry.getKey();
             SortedSet<Eindwerk> value = entry.getValue();
             
             if(key.equals(opleiding)) return value.toArray(new Eindwerk[value.size()]);
             
-        }*/
-        
-        if(map.containsKey(opleiding))return map.get(opleiding).toArray(new Eindwerk[map.get(opleiding).size()]);
-        return null;
+        }
+        ********************************************************************************/
         
         /****dubbele lijst per richting************************************************
         for(int i = 0; i<eindwerkcollectie.size(); i++){
