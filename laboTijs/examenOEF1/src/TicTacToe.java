@@ -39,7 +39,7 @@ public class TicTacToe {
         String newStr = "";
         
         char[] charArray = Snum.toCharArray();
-
+        Stream<String> str;
         for(char num : charArray){
             if(num == Integer.toString(chckNum).charAt(0)) newStr += word+" "; 
         }
